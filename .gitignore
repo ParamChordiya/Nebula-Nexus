@@ -1,2 +1,5 @@
 # Ignore environment files
 .env
+myenv/
+src/__pycache__/
+logs/

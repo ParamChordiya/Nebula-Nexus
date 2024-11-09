@@ -1,4 +1,4 @@
-# Nebula-Nexus
+# Nebula Nexus: A Scientific Paper Query Tool
 
 Nebula-Nexus is a futuristic PDF question-answering assistant for research papers, powered by Retrieval-Augmented Generation (RAG). This tool allows users to upload any PDF and receive precise answers to their questions based on the content of the research paper.
 

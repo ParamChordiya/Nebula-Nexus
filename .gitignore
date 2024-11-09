@@ -2,4 +2,4 @@
 .env
 myenv/
 src/__pycache__/
-logs/
+logs/app.log

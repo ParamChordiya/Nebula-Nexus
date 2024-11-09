@@ -6,6 +6,7 @@ Nebula-Nexus is a futuristic PDF question-answering assistant for research paper
 
 - Upload a PDF of a research paper and ask questions about its content.
 - Leveraging RAG to provide accurate answers directly from the paper.
+- Added ability to use opensource embeddings
 
 ## Requirements
 

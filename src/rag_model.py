@@ -1,9 +1,12 @@
+
+
 import openai
 import numpy as np
 import os
 import logging
 
 from typing import Dict
+from src.embeddings import EmbeddingModel
 
 logger = logging.getLogger(__name__)
 
@@ -22,12 +25,12 @@ def get_answer(query: str, vector_store: Dict[str, list]) -> str:
         str: The generated answer.
     """
     try:
+        # Initialize the same embedding model used for the vector store
+        embedding_model_name = vector_store['embedding_model_name']
+        embedding_model = EmbeddingModel(model_name=embedding_model_name)
+
         # Create embedding for the query
-        response = openai.Embedding.create(
-            input=query,
-            model="text-embedding-ada-002"
-        )
-        query_embedding = np.array(response['data'][0]['embedding'])
+        query_embedding = np.array(embedding_model.get_embedding(query))
 
         # Calculate cosine similarities
         similarities = []
@@ -44,7 +47,7 @@ def get_answer(query: str, vector_store: Dict[str, list]) -> str:
 
         # Use OpenAI GPT-4 model to generate answer using ChatCompletion
         messages = [
-            {"role": "system", "content": "You are an assistant that answers questions in the simplest possible way based on the provided context. These questions are based on different research papers and need deep understanding of scientific knowledge."},
+            {"role": "system", "content": "You are an assistant that answers in the simplest possible way based on the provided context. These questions are based on different research papers and need deep understanding of scientific knowledge."},
             {"role": "user", "content": f"Context:\n{context}\n\nQuestion:\n{query}"}
         ]
 
@@ -60,3 +63,4 @@ def get_answer(query: str, vector_store: Dict[str, list]) -> str:
     except Exception as e:
         logger.exception("Error generating answer: %s", e)
         raise
+
